@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Symmetric Key Encryption and Decryption</title>
+</head>
+
+<body>
+
+    <h1>Symmetric Key Encryption and Decryption</h1>
+
+    <label for="plaintext">Enter Plain Text:</label><br>
+    <textarea id="plaintext" name="plaintext" rows="4" cols="50" placeholder="Enter plain text"></textarea><br><br>
+
+    <button onclick="encrypt()">Encrypt</button>
+    <button onclick="decrypt()">Decrypt</button><br><br>
+
+    <label for="ciphertext">Encrypted/Decrypted Text:</label><br>
+    <textarea id="ciphertext" name="ciphertext" rows="4" cols="50" placeholder="Result" readonly></textarea><br><br>
+
+    <script>
+        // This key is only to be ussed in 975050030809 and ONLY for testing purpose.
+        var key = "uehMICLXuKKlRxQUvJPliYyWTAsMVGgYEkGGSUaazDyOnRkukCEbMDBuotXYwIfrmEDLLbrJWJtKCIfEqjNxtBxGZOOagLeuUPtVHLFmuCohwtnvMAbDGEjwHaUpSkEC"
+
+        function encrypt() {
+            var key = document.getElementById("key").value;
+            var plaintext = document.getElementById("plaintext").value;
+
+            if (key.length == 0 || plaintext.length == 0) {
+                alert("Key and plaintext cannot be empty.");
+                return;
+            }
+
+            var ciphertext = CryptoJS.AES.encrypt(plaintext, key).toString();
+            document.getElementById("ciphertext").value = ciphertext;
+        }
+
+        function decrypt() {
+            var key = document.getElementById("key").value;
+            var ciphertext = document.getElementById("ciphertext").value;
+
+            if (key.length == 0 || ciphertext.length == 0) {
+                alert("Key and ciphertext cannot be empty.");
+                return;
+            }
+
+            var bytes = CryptoJS.AES.decrypt(ciphertext, key);
+            var originalText = bytes.toString(CryptoJS.enc.Utf8);
+            document.getElementById("plaintext").value = originalText;
+        }
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+
+</body>
+
+</html>
